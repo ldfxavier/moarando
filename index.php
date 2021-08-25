@@ -7,7 +7,7 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
@@ -22,18 +22,17 @@
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
 					<form method="POST" action="php/download.php" enctype="multipart/form-data">
-						<!-- COMPONENT START -->
 						<div class="form-group">
 							<div class="input-group input-file" name="arquivo">
 								<span class="input-group-btn">
 									<button class="btn btn-default btn-info" type="button">Arquivo</button>
 								</span>
-								<input type="text" class="form-control" placeholder='Adicione seu arquivo .txt' />
+								<input type="text" class="form-control" name="arquivo" placeholder='Adicione seu arquivo .txt' />
 							</div>
 						</div>
-						<!-- COMPONENT END -->
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary pull-right">Converter</button>
+							<button type="submit" class="btn btn-submit btn-primary pull-right">Converter</button>
+							<button type="submit" style="display: none;" class="btn-submit">Submit</button>
 							<button type="reset" class="btn btn-danger">Limpar</button>
 						</div>
 					</form>
@@ -79,6 +78,41 @@
 				}
 			);
 		}
+		
+		$('.btn-submit').click(function(){
+			let form = $(this).closest('form');
+			let action = form.attr('action');
+
+			let tamanho = $('.form-control').val();
+
+			if(!tamanho || tamanho === '' || tamanho === undefined){
+				$('.alert').show();
+				alert('É preciso enviar um arquivo para converter!');
+
+				return false;
+			}else{	
+
+				$('btn-submit').click();
+				// var dados = new FormData($(form).get(0));
+
+				// $.ajax({
+				// 	url: action,
+				// 	data: dados,
+				// 	type: 'post',
+				// 	dataType : 'json',
+				// 	success: function(resposta){
+				// 		console.log(resposta);
+				// 	},
+				// 	error: function(resposta){
+				// 		console.log(resposta);
+				// 	},
+				// 	processData: false,
+				// 	cache: false,
+				// 	contentType: false
+				// });
+			}
+		});
+
 		$(function() {
 			bs_input_file();
 		});

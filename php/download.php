@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
+
 include "../excel/excel.php";
 
 final class Download{
@@ -55,7 +57,7 @@ if(isset($_FILES['arquivo']) && !empty($_FILES['arquivo'])):
 	$uploaddir = '../arquivo/';
 	$uploadfile = $uploaddir . basename($_FILES['arquivo']['name']);
 
-	$nome = md5(uniqid(time())).".txt";
+	$nome = "dados.txt";
 
 	$uploaddir = $uploaddir.$nome;
 	
@@ -63,7 +65,7 @@ if(isset($_FILES['arquivo']) && !empty($_FILES['arquivo'])):
 		$Download = new Download;
 		$Download->gerar($nome);
 	} else {
-		echo "Possível ataque de upload de arquivo!\n";
+		exit();
 	}
 
 endif;
